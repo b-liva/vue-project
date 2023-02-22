@@ -1,20 +1,16 @@
 <template>
   <div>
-    <p>Times clicked: {{ count }}</p>
-    <button @click="increment">increment</button>
+    <p>Hi, my name is {{ user }}</p>
+
+    <label for="username">Username:</label>
+    <input v-model="user" id="username" name="username" />
   </div>
 </template>
 
 <script>
   export default {
     data: () => ({
-      count: 0,
+      user: 'Alice',
     }),
-
-    methods: {
-      increment() {
-        this.count++
-      },
-    },
   }
 </script>
