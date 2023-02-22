@@ -3,7 +3,7 @@ import { expect, test } from "vitest"
 function add(a, b){
     return a + b
 }
-describe('test utils', () => {
+describe('test helpers', () => {
     test("one: ", () =>{
         expect(1).toBe(1)
     })
