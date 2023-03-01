@@ -1,11 +1,15 @@
 import { fileURLToPath, URL } from 'node:url'
+import graphql from '@rollup/plugin-graphql';
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+      vue(),
+    graphql()
+  ],
   build:{
     target: "es2020",
     watch:{}
@@ -13,7 +17,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+    },
+    extensions: ['.js', '.json']
   },
   test: {
     // enable jest-like global test APIs
