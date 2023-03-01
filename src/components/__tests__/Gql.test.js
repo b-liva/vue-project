@@ -7,15 +7,6 @@ import router from "../../helpers/router";
 import {createTestingPinia} from "@pinia/testing";
 import {apolloClient} from "../../helpers/config";
 import {useQuery} from "@vue/apollo-composable";
-// import {useQuery} from "@vue/apollo-composable/dist/index.esm";
-
-async function getMockCustomersList(){
-    let v = ref({});
-    customersGqlQuery.then(res => {
-        v.value = res
-        return v
-    })
-}
 
 let cus;
 beforeEach(async () => {
