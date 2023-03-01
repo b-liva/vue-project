@@ -1,0 +1,12 @@
+query filterCustomer($customerName: String) {
+    filterCustomer: allCustomers(name_Icontains: $customerName) {
+        edges {
+            node {
+                id
+                name
+                phone
+                whatsapp
+            }
+        }
+    }
+}

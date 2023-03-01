@@ -10,10 +10,6 @@ const schema = makeExecutableSchema(
 
 // Mock object
 const mocks = {
-    DateTime: () => casual.date(/* format = 'YYYY-MM-DDTHH:mm:ss.SSSZZ' */),
-    CustomerTypeNode: () => ({
-        name: () => casual.word
-    }),
     CustomerNode: () => ({
         name: "cu01",
         phone: casual.phone,
@@ -75,17 +71,8 @@ query filterCustomer($customerName: String) {
             node {
                 id
                 name
-                type {
-                    id
-                    name
-                }
                 phone
                 whatsapp
-                email
-                postalCode
-                addr
-                salesQty
-                salesKw
             }
         }
     }
