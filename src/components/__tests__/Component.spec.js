@@ -15,4 +15,5 @@ test('properly handles v-model', async () => {
   await fireEvent.update(usernameInput, 'Bob')
 
   getByText('Hi, my name is Bob');
+  getByText('item: 1');
 })
