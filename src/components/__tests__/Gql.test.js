@@ -16,16 +16,18 @@ beforeEach(async () => {
     })
     vi.clearAllMocks()
 })
+
+vi.mock("@vue/apollo-composable", async () => {
+    const actual = await vi.importActual("@vue/apollo-composable")
+    return {
+        ...actual,
+        // your mocked methods
+        useQuery: vi.fn(),
+        useLazyQuery: vi.fn()
+    }
+})
 describe('customer filter', async () => {
-    vi.mock("@vue/apollo-composable", async () => {
-        const actual = await vi.importActual("@vue/apollo-composable")
-        return {
-            ...actual,
-            // your mocked methods
-            useQuery: vi.fn(),
-            useLazyQuery: vi.fn()
-        }
-    })
+
     test('Update store customers on typing customer name useQuery', async () => {
         useQuery.mockImplementation(() => ({
             error: ref(null),
