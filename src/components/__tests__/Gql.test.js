@@ -21,19 +21,16 @@ describe('customer filter', async () => {
         return {
             ...actual,
             // your mocked methods
-            useQuery: vi.fn(() => ({
-                error: ref(null),
-                loading: ref(false),
-                result: cus
-            })),
-            useLazyQuery: vi.fn(() => ({
-                result: cus,
-                load: vi.fn()
-            }))
+            useQuery: vi.fn(),
+            useLazyQuery: vi.fn()
         }
     })
     test('Update store customers on typing customer name useQuery', async () => {
-
+        useQuery.mockImplementation(() => ({
+            error: ref(null),
+            loading: ref(false),
+            result: cus
+        }))
         const component = render(customers, {
             global: {
                 provide:[apolloClient],
@@ -51,6 +48,10 @@ describe('customer filter', async () => {
     })
 
     test('Update store customers on typing customer name useLazyQuery', async () => {
+        useLazyQuery.mockImplementation(() => ({
+            result: cus,
+            load: vi.fn()
+        }))
         const component = render(CustomersUseLazyQuery, {
             global: {
                 provide:[apolloClient],
