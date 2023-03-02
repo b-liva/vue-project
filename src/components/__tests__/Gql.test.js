@@ -14,6 +14,7 @@ beforeEach(async () => {
     customersGqlQuery.then(res => {
         cus = res;
     })
+    vi.clearAllMocks()
 })
 describe('customer filter', async () => {
     vi.mock("@vue/apollo-composable", async () => {
@@ -84,7 +85,7 @@ describe('customer filter', async () => {
                 ]
             }
         })
-        expect(useLazyQuery).toHaveBeenCalledTimes(2)
+        expect(useLazyQuery).toHaveBeenCalledTimes(1)
         const customerStore = useCustomerStore();
         const customerNameInput = component.getByPlaceholderText("مشتری")
         await fireEvent.update(customerNameInput, "cu01")
