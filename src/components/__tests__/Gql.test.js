@@ -66,6 +66,7 @@ describe('customer filter', async () => {
         const customerStore = useCustomerStore();
         const customerNameInput = component.getByPlaceholderText("مشتری")
         await fireEvent.update(customerNameInput, "cu01")
+        component.getByText("Not loading")
         const l = await component.getAllByText("cu01")
         expect(l.length).toBe(3)
     })
