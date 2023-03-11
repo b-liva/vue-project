@@ -82,4 +82,20 @@ describe('test doMock', async () => {
         expect(mockMe).toBeCalledTimes(1)
         expect(value).toBe('This is mocked version')
     })
+    test('doMock with in component call', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        const component = render(callMockMeComponent)
+        component.getByText('Component mounted.')
+        expect(mockMe).toBeCalledTimes(1)
+    })
+    test('doMock with in component call and implementation', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        mockMe.mockImplementation(() => {
+            return 'This is mocked with in component call and implementation';
+        })
+        const component = render(callMockMeComponent)
+        component.getByText('Component mounted.')
+        expect(mockMe).toBeCalledTimes(1)
+        component.getByText('This is mocked with in component call and implementation')
+    })
 })
