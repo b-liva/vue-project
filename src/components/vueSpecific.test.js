@@ -7,7 +7,6 @@ describe("vue specific", () => {
         const component = render(Simple)
         component.getByText('Both')
         const el = component.getByText('Show');
-        console.log("element: ", el);
         component.getByText('Hide')
     })
 })
