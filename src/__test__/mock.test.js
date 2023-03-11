@@ -19,6 +19,18 @@ describe("mock module", () => {
         expect(mockMe).toBeCalledTimes(1)
         expect(value).toBe('This is mocked version')
     })
+    test('mock with in module call', () => {
+        callMockMe()
+        expect(mockMe).toBeCalledTimes(1)
+    })
+    test('call mockMe', () => {
+        mockMe.mockImplementation(() => {
+            return 'This is mocked version';
+        })
+        const value = callMockMe()
+        expect(mockMe).toBeCalledTimes(1)
+        expect(value).toBe('This is mocked version')
+    })
 })
 
 describe('test doMock', async () => {
