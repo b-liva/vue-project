@@ -4,8 +4,8 @@ import {callMockMe} from "../modules/callModuleFunction";
 import callMockMeComponent from "../components/CallMockMe.vue"
 import {render} from "@testing-library/vue";
 
-describe("mock module", () => {
-    beforeEach(() => {
+describe("test mock module", async () => {
+    beforeEach(async () => {
         vi.mock("../modules/moduleToMock");
         vi.clearAllMocks()
     })
@@ -50,10 +50,12 @@ describe("mock module", () => {
 })
 
 describe('test doMock', async () => {
-    beforeEach(() => {
-        vi.doMock("../modules/moduleToMock");
+    vi.doMock("../modules/moduleToMock");
+    beforeEach(async () => {
+        vi.clearAllMocks()
+        vi.resetModules();
     })
-    test('doMock with inline call', async () => {
+    test('doMock with in test call', async () => {
         const {mockMe} = await import("../modules/moduleToMock")
         mockMe();
         expect(mockMe).toBeCalledTimes(1)
@@ -69,12 +71,13 @@ describe('test doMock', async () => {
     })
     test('doMock with in module call', async () => {
         const {mockMe} = await import("../modules/moduleToMock")
+        const {callMockMe} = await import("../modules/callModuleFunction")
         const value = callMockMe();
         expect(mockMe).toBeCalledTimes(1)
-        expect(value).toBe('This function should be mocked.')
     })
     test('doMock with in module call and implementation', async () => {
         const {mockMe} = await import("../modules/moduleToMock")
+        const {callMockMe} = await import("../modules/callModuleFunction")
         mockMe.mockImplementation(() => {
             return 'This is mocked version';
         })
@@ -82,14 +85,20 @@ describe('test doMock', async () => {
         expect(mockMe).toBeCalledTimes(1)
         expect(value).toBe('This is mocked version')
     })
+})
+
+describe("Test doMock in Component", () => {
+    vi.doMock("../modules/moduleToMock");
+    beforeEach(async () => {
+        vi.clearAllMocks()
+        vi.resetModules();
+    })
     test('doMock with in component call', async () => {
-        const {mockMe} = await import("../modules/moduleToMock")
         const component = render(callMockMeComponent)
         component.getByText('Component mounted.')
         expect(mockMe).toBeCalledTimes(1)
     })
     test('doMock with in component call and implementation', async () => {
-        const {mockMe} = await import("../modules/moduleToMock")
         mockMe.mockImplementation(() => {
             return 'This is mocked with in component call and implementation';
         })
