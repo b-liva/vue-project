@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { mockMe } from "../modules/moduleToMock";
 import {callMockMe} from "../modules/callModuleFunction";
-import callMockMeComponent from "../components/callMockMe.vue"
+import callMockMeComponent from "../components/CallMockMe.vue"
 import {render} from "@testing-library/vue";
 
 describe("mock module", () => {
@@ -73,7 +73,7 @@ describe('test doMock', async () => {
         expect(mockMe).toBeCalledTimes(1)
         expect(value).toBe('This function should be mocked.')
     })
-    test('doMock with in test module call and implementation', async () => {
+    test('doMock with in module call and implementation', async () => {
         const {mockMe} = await import("../modules/moduleToMock")
         mockMe.mockImplementation(() => {
             return 'This is mocked version';
