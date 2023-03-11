@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { mockMe } from "../modules/moduleToMock";
+import {callMockMe} from "../modules/callModuleFunction";
 
 describe("mock module", () => {
     beforeEach(() => {
@@ -35,6 +36,21 @@ describe('test doMock', async () => {
             return 'This is mocked version';
         })
         const value = mockMe();
+        expect(mockMe).toBeCalledTimes(1)
+        expect(value).toBe('This is mocked version')
+    })
+    test('doMock with in module call', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        const value = callMockMe();
+        expect(mockMe).toBeCalledTimes(1)
+        expect(value).toBe('This function should be mocked.')
+    })
+    test('doMock with in test module call and implementation', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        mockMe.mockImplementation(() => {
+            return 'This is mocked version';
+        })
+        const value = callMockMe();
         expect(mockMe).toBeCalledTimes(1)
         expect(value).toBe('This is mocked version')
     })
