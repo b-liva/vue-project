@@ -29,4 +29,13 @@ describe('test doMock', async () => {
         mockMe();
         expect(mockMe).toBeCalledTimes(1)
     })
+    test('doMock with in test call and implementation', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        mockMe.mockImplementation(() => {
+            return 'This is mocked version';
+        })
+        const value = mockMe();
+        expect(mockMe).toBeCalledTimes(1)
+        expect(value).toBe('This is mocked version')
+    })
 })
