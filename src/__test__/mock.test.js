@@ -19,3 +19,14 @@ describe("mock module", () => {
         expect(value).toBe('This is mocked version')
     })
 })
+
+describe('test doMock', async () => {
+    beforeEach(() => {
+        vi.doMock("../modules/moduleToMock");
+    })
+    test('doMock with inline call', async () => {
+        const {mockMe} = await import("../modules/moduleToMock")
+        mockMe();
+        expect(mockMe).toBeCalledTimes(1)
+    })
+})
