@@ -1,3 +1,3 @@
 export function mockMe(){
-    return "This function should be mocked."
+    return "This function is not mocked."
 }
